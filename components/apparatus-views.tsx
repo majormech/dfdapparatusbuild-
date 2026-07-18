@@ -206,7 +206,7 @@ export function NewApparatusView() {
         </div>
         {templateDefinitions[template].length > 0 && <div className="template-preview"><p>COMPARTMENTS TO CREATE</p><div>{templateDefinitions[template].map((name, index) => <span key={name}><b>{String(index + 1).padStart(2, "0")}</b>{name}</span>)}</div></div>}
         {error && <div className="form-error" role="alert">{error}</div>}
-        <div className="form-actions"><Link className="button button-secondary" href="/apparatus">Cancel</Link><button className="button button-primary button-large" disabled={submitting}>{submitting ? "Creating apparatus…" : "Create apparatus →"}</button></div>
+       <div className="form-actions"><Link className="button button-secondary" href="/apparatus">Cancel</Link><button type="submit" className="button button-primary button-large" disabled={submitting}>{submitting ? "Creating apparatus…" : "Create apparatus →"}</button></div>
       </form>
     </div>
   );
