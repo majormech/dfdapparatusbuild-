@@ -18,16 +18,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="app-shell">
       <header className="mobile-header">
-        <button className="icon-button" aria-label="Open navigation" onClick={() => setMenuOpen(true)}>☰</button>
+       <button type="button" className="icon-button" aria-label="Open navigation" onClick={() => setMenuOpen(true)}>☰</button>
         <Brand compact />
         <span />
       </header>
-      {menuOpen && <button className="sidebar-scrim" aria-label="Close navigation" onClick={() => setMenuOpen(false)} />}
+      {menuOpen && <button type="button" className="sidebar-scrim" aria-label="Close navigation" onClick={() => setMenuOpen(false)} />}
       <aside className={`sidebar ${menuOpen ? "sidebar-open" : ""}`}>
         <div className="sidebar-topline" />
         <Brand />
-        <button className="sidebar-close" aria-label="Close navigation" onClick={() => setMenuOpen(false)}>×</button>
-
+        <button type="button" className="sidebar-close" aria-label="Close navigation" onClick={() => setMenuOpen(false)}>×</button>
+        
         <nav className="primary-nav" aria-label="Main navigation">
           <p className="nav-label">Operations</p>
           {navigation.map((item) => {
