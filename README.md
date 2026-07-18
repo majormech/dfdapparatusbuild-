@@ -1,31 +1,23 @@
- # DFD Apparatus Inventory
+# DFD Apparatus Inventory
 
-A React + Vite + TypeScript web app for building and managing fire department apparatus inventory by compartment. The app is designed for Cloudflare Pages, a Cloudflare Worker API, and a Cloudflare D1 database.
+A responsive fire apparatus inventory application for organizing equipment by apparatus and compartment. Every unit has a dedicated page with compartment-level item management, status tracking, and move controls.
 
-## Features
+## Included
 
-- Dashboard cards for all apparatus with compartment and item counts.
-- Apparatus list table with station, type, status, and count columns.
-- Apparatus detail pages for managing unlimited compartments and inventory items.
-- Engine, Engine With Walkway, Truck, Truck 1, and blank/custom apparatus templates.
-- D1 schema and seed migrations for DFD starting apparatus and compartment templates.
-- Worker API routes for apparatus, compartments, inventory item CRUD, and moving items between compartments.
+- Dashboard cards and fleet metrics
+- Search and filters by station, apparatus type, and equipment type
+- Dedicated URLs such as `/apparatus/engine-1`
+- Engine, Engine With Walkway, Truck, Truck 1, and blank/custom templates
+- Add, edit, move, and delete flows for apparatus, compartments, and inventory
+- Cloudflare D1 persistence with generated Drizzle migration
+- Text-safe equipment IDs and serial numbers that preserve leading zeroes
+- Responsive sidebar, tables, cards, and touch-friendly controls
 
-## Development
+## Local development
 
-```bash
-npm install
-npm run dev
-npm run build
-```
+Install dependencies, run the development server, and open the printed local URL. The local Cloudflare runtime creates and seeds the D1 schema on first access.
 
-## Cloudflare D1
+## Deployment
 
-Create a D1 database, update `wrangler.toml` with the real database ID, and apply migrations:
+The project uses the bundled vinext Cloudflare Worker build and the logical `DB` binding declared in `.openai/hosting.json`.
 
-```bash
-npx wrangler d1 migrations apply dfd-apparatus-inventory --local
-npx wrangler d1 migrations apply dfd-apparatus-inventory --remote
-```
-
-Equipment IDs and serial numbers are stored as `TEXT` to preserve leading zeroes.
