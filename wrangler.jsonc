@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "dfd-apparatus-inventory",
+  "compatibility_date": "2026-07-18",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "./worker/index.ts",
+  "d1_databases": [
+    {
+      "binding": "DB"
+    }
+  ]
+}
