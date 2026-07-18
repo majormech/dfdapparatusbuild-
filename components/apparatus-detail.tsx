@@ -89,14 +89,14 @@ export function ApparatusDetailView({ slug }: { slug: string }) {
       <header className="unit-hero">
         <div className="hero-unit-mark">{detail.type.startsWith("Truck") ? "T" : detail.type === "Engine" ? "E" : detail.type === "Rescue" ? "R" : "B"}</div>
         <div className="unit-identity"><p>STATION {detail.stationNumber} · {detail.type.toUpperCase()}</p><h1>{detail.name}</h1><div><span className="inline-status"><span className="status-dot" />{detail.isReserve ? "Reserve" : detail.status}</span>{detail.isReserve && <span className="reserve-tag">RESERVE UNIT</span>}</div></div>
-        <div className="unit-hero-actions"><button className="button button-secondary" onClick={() => setModal({ kind: "apparatus" })}>Edit details</button><button className="button button-primary" onClick={() => setModal({ kind: "item", compartmentId: detail.compartments[0]?.id })}>+ Add item</button></div>
+        <div className="unit-hero-actions"><button type="button" className="button button-secondary" onClick={() => setModal({ kind: "apparatus" })}>Edit details</button><button type="button" className="button button-primary" onClick={() => setModal({ kind: "item", compartmentId: detail.compartments[0]?.id })}>+ Add item</button></div>
         <div className="hero-stats"><div><strong>{detail.compartmentCount}</strong><span>Compartments</span></div><div><strong>{detail.itemCount}</strong><span>Inventory units</span></div><div className={nonServiceItems ? "stat-alert" : ""}><strong>{nonServiceItems}</strong><span>Need attention</span></div></div>
       </header>
 
       <div className="detail-toolbar">
         <label className="search-field detail-search"><span>⌕</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search items, IDs, or serials…" aria-label="Search inventory" /></label>
         <label className="select-field"><span>Equipment</span><select value={equipmentType} onChange={(event) => setEquipmentType(event.target.value)}><option value="">All equipment types</option>{equipmentTypes.map((value) => <option key={value}>{value}</option>)}</select></label>
-        <button className="button button-secondary" onClick={() => setModal({ kind: "compartment" })}>+ Compartment</button>
+        <button type="button" className="button button-secondary" onClick={() => setModal({ kind: "compartment" })}>+ Compartment</button>
         <a className="button button-secondary" href={`/api/apparatus/${detail.id}/export`}>Download CSV</a>
       </div>
 
@@ -107,7 +107,7 @@ export function ApparatusDetailView({ slug }: { slug: string }) {
             const count = detail.items.filter((item) => item.compartmentId === compartment.id).reduce((sum, item) => sum + item.quantity, 0);
             return <a key={compartment.id} href={`#compartment-${compartment.id}`}><span>{String(compartment.sortOrder).padStart(2, "0")}</span><b>{compartment.name}</b><em>{count}</em></a>;
           })}</nav>
-          <button className="index-add" onClick={() => setModal({ kind: "compartment" })}>+ Add compartment</button>
+          <button type="button" className="index-add" onClick={() => setModal({ kind: "compartment" })}>+ Add compartment</button>
           <div className="first-due-note"><strong>FIRST DUE READY</strong><p>Consistent compartment names and text-based equipment IDs preserve clean future exports.</p></div>
         </aside>
 
@@ -142,7 +142,7 @@ export function ApparatusDetailView({ slug }: { slug: string }) {
               />
             );
           })}
-          {!detail.compartments.length && <div className="empty-compartments"><span>+</span><h2>Build this apparatus layout</h2><p>Add the first compartment, then begin assigning equipment.</p><button className="button button-primary" onClick={() => setModal({ kind: "compartment" })}>Add first compartment</button></div>}
+          {!detail.compartments.length && <div className="empty-compartments"><span>+</span><h2>Build this apparatus layout</h2><p>Add the first compartment, then begin assigning equipment.</p><button type="button" className="button button-primary" onClick={() => setModal({ kind: "compartment" })}>Add first compartment</button></div>}
         </section>
       </div>
 
@@ -174,21 +174,21 @@ function CompartmentCard({ compartment, items, totalItemCount, filtersActive, on
       <header className="compartment-header">
         <span className="compartment-number">{String(compartment.sortOrder).padStart(2, "0")}</span>
         <div><p>{compartment.compartmentType}</p><h3>{compartment.name}</h3>{compartment.notes && <small>{compartment.notes}</small>}</div>
-        <div className="compartment-actions"><button className="text-button" onClick={onEdit}>Edit</button><button className="danger-link" onClick={onDelete}>Delete</button><button className="button button-small" onClick={onAdd}>+ Add item</button></div>
+        <div className="compartment-actions"><button type="button" className="text-button" onClick={onEdit}>Edit</button><button type="button" className="danger-link" onClick={onDelete}>Delete</button><button type="button" className="button button-small" onClick={onAdd}>+ Add item</button></div>
       </header>
       {items.length ? <div className="inventory-list">{items.map((item) => <div className="inventory-row" key={item.id}>
         <div className="item-main"><span className={`item-status-marker status-${item.status.toLowerCase().replace(/\s/g, "-")}`} /><div><strong>{item.name}</strong><small>{item.make} {item.model}</small></div></div>
         <div className="item-type"><span>{item.equipmentType}</span><small>Qty {item.quantity}</small></div>
         <div className="item-ids"><span>ID <b>{item.equipmentId || "—"}</b></span><span>S/N <b>{item.serialNumber || "—"}</b></span></div>
         <div className="item-state"><span className={item.status === "In Service" ? "state-chip" : "state-chip state-warning"}>{item.status}</span></div>
-        <div className="item-actions"><button onClick={() => onEditItem(item)}>Edit</button><button onClick={() => onMoveItem(item)}>Move</button><button className="danger-link" onClick={() => onDeleteItem(item)}>Delete</button></div>
-      </div>)}</div> : <div className="empty-compartment"><p>{filtersActive && totalItemCount ? "No items in this compartment match the active filters." : "No equipment assigned to this compartment."}</p><button onClick={onAdd}>+ Add item</button></div>}
+        <div className="item-actions"><button type="button" onClick={() => onEditItem(item)}>Edit</button><button type="button" onClick={() => onMoveItem(item)}>Move</button><button type="button" className="danger-link" onClick={() => onDeleteItem(item)}>Delete</button></div>
+      </div>)}</div> : <div className="empty-compartment"><p>{filtersActive && totalItemCount ? "No items in this compartment match the active filters." : "No equipment assigned to this compartment."}</p><button type="button" onClick={onAdd}>+ Add item</button></div>}
     </article>
   );
 }
 
 function Modal({ title, children, onClose }: { title: string; children: React.ReactNode; onClose: () => void }) {
-  return <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}><section className="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><header><div><p className="eyebrow">Inventory control</p><h2 id="modal-title">{title}</h2></div><button className="modal-close" aria-label="Close" onClick={onClose}>×</button></header>{children}</section></div>;
+  return <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}><section className="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><header><div><p className="eyebrow">Inventory control</p><h2 id="modal-title">{title}</h2></div><button type="button" className="modal-close" aria-label="Close" onClick={onClose}>×</button></header>{children}</section></div>;
 }
 
 function CompartmentForm({ apparatusId, value, nextSort, onSave }: { apparatusId: number; value?: Compartment; nextSort: number; onSave: (url: string, method: string, payload?: unknown, message?: string) => Promise<void> }) {
@@ -308,7 +308,7 @@ function MoveForm({ apparatus, item, onSave }: { apparatus: ApparatusDetail; ite
     catch (caught) { setError(caught instanceof Error ? caught.message : "Unable to move item."); setSaving(false); }
   }
   const current = apparatus.compartments.find((entry) => entry.id === item.compartmentId);
-  return <form className="modal-form" onSubmit={submit}><div className="move-summary"><span className="mini-unit">↗</span><div><strong>{item.name}</strong><small>Currently in {current?.name ?? "Unassigned"}</small></div></div><div className="form-grid"><label className="field field-wide"><span>Name or department ID <b className="required-tag">Required</b></span><input name="enteredBy" required placeholder="Person making this change" /></label><label className="field field-wide"><span>Move to compartment</span><select name="compartmentId" required defaultValue={item.compartmentId}>{apparatus.compartments.map((compartment) => <option key={compartment.id} value={compartment.id}>{String(compartment.sortOrder).padStart(2, "0")} · {compartment.name}</option>)}</select></label></div>{error && <div className="form-error">{error}</div>}<div className="modal-actions"><button className="button button-primary" disabled={saving}>{saving ? "Moving…" : "Move item"}</button></div></form>;
+   return <form className="modal-form" onSubmit={submit}><div className="move-summary"><span className="mini-unit">↗</span><div><strong>{item.name}</strong><small>Currently in {current?.name ?? "Unassigned"}</small></div></div><div className="form-grid"><label className="field field-wide"><span>Name or department ID <b className="required-tag">Required</b></span><input name="enteredBy" required placeholder="Person making this change" /></label><label className="field field-wide"><span>Move to compartment</span><select name="compartmentId" required defaultValue={item.compartmentId}>{apparatus.compartments.map((compartment) => <option key={compartment.id} value={compartment.id}>{String(compartment.sortOrder).padStart(2, "0")} · {compartment.name}</option>)}</select></label></div>{error && <div className="form-error">{error}</div>}<div className="modal-actions"><button type="submit" className="button button-primary" disabled={saving}>{saving ? "Moving…" : "Move item"}</button></div></form>;
 }
 
 function ApparatusForm({ apparatus, onSave, onDeleted }: { apparatus: ApparatusDetail; onSave: (url: string, method: string, payload?: unknown, message?: string) => Promise<void>; onDeleted: () => void }) {
@@ -335,5 +335,5 @@ function ApparatusForm({ apparatus, onSave, onDeleted }: { apparatus: ApparatusD
     <label className="field"><span>Status</span><select name="status" defaultValue={apparatus.status}><option>Active</option><option>Out of Service</option><option>Retired</option></select></label>
     <label className="check-field"><input type="checkbox" name="isReserve" defaultChecked={apparatus.isReserve} /><span><strong>Reserve apparatus</strong><small>Available for reserve assignment</small></span></label>
     <label className="field field-wide"><span>Notes</span><textarea name="notes" rows={3} defaultValue={apparatus.notes} /></label>
-  </div>{error && <div className="form-error">{error}</div>}<div className="modal-actions modal-actions-split"><button type="button" className="danger-button" onClick={remove}>Delete apparatus</button><button className="button button-primary" disabled={saving}>{saving ? "Saving…" : "Save details"}</button></div></form>;
+  </div>{error && <div className="form-error">{error}</div>}<div className="modal-actions modal-actions-split"><button type="button" className="danger-button" onClick={remove}>Delete apparatus</button><button type="submit" className="button button-primary" disabled={saving}>{saving ? "Saving…" : "Save details"}</button></div></form>;
 }
