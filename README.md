@@ -9,15 +9,42 @@ A responsive fire apparatus inventory application for organizing equipment by ap
 - Dedicated URLs such as `/apparatus/engine-1`
 - Engine, Engine With Walkway, Truck, Truck 1, and blank/custom templates
 - Add, edit, move, and delete flows for apparatus, compartments, and inventory
-- Cloudflare D1 persistence with generated Drizzle migration
+- Cloudflare D1 persistence with automatic schema creation and seed/import data
 - Text-safe equipment IDs and serial numbers that preserve leading zeroes
 - Responsive sidebar, tables, cards, and touch-friendly controls
 
 ## Local development
 
-Install dependencies, run the development server, and open the printed local URL. The local Cloudflare runtime creates and seeds the D1 schema on first access.
+```bash
+npm install
+npm run dev
+```
 
-## Deployment
+The local Cloudflare runtime creates and seeds the D1 schema on first access.
 
-The project uses the bundled vinext Cloudflare Worker build and the logical `DB` binding declared in `.openai/hosting.json`.
+## Cloudflare Workers deployment
 
+This is a full-stack vinext application and must be deployed as a **Cloudflare Worker**, not as a static Cloudflare Pages project.
+
+The `wrangler.jsonc` file declares a D1 binding named `DB`. Wrangler 4.92 can automatically provision the D1 database during the first deployment. The application creates its tables and imports the included starting inventory on the first request.
+
+### Deploy from a local terminal
+
+```bash
+npm install
+npx wrangler login
+npm run deploy
+```
+
+### Deploy with Cloudflare Workers Builds
+
+Connect the GitHub repository from **Workers & Pages → Create application → Import a repository** and use:
+
+- Worker name: `dfd-apparatus-inventory`
+- Production branch: `main`
+- Root directory: `/`
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- Node version: `22.13.0` or newer
+
+The Worker name in Cloudflare must match the `name` value in `wrangler.jsonc`.
