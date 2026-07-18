@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1784323832319,
+      "tag": "0000_violet_ink",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1784325959881,
+      "tag": "0001_whole_madelyne_pryor",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1784331881968,
+      "tag": "0002_funny_spiral",
+      "breakpoints": true
+    }
+  ]
+}
